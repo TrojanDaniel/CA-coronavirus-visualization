@@ -6,7 +6,7 @@ from bokeh.plotting import figure, curdoc
 from bokeh.layouts import column, row
 from bokeh.core.properties import value
 from bokeh.io import show
-from bokeh.models import Div, DatePicker, ColumnDataSource, TableColumn, DataTable, HoverTool,SingleIntervalTicker
+from bokeh.models import Div, DatePicker, ColumnDataSource, TableColumn, DataTable, HoverTool
 
 
 cdph_race = "https://raw.githubusercontent.com/datadesk/california-coronavirus-data/master/cdph-race-ethnicity.csv"
@@ -49,9 +49,6 @@ p1 = figure(x_range=data1["date"],y_range=(0,20000),plot_width=500, plot_height=
 p1.add_tools(ht1)
 p1.circle(x='date',y='day_confirmed_cases',source=source1,
                          size=20, color="#DB7093")
-
-
-
 
 
 
@@ -106,8 +103,7 @@ def call_back(attr, old, new):
     source2.data=race_data
 
 
-date_picker.on_change("value", call_back)
+date_picker.on_change("value",call_back)
 q2=column(desc2,p2)
-show(column(desc,date_picker,dt1,row(p1,q2)))
-curdoc().add_root(column(desc,date_picker,dt1,row(p1,q2)))
-
+layout=column(desc,date_picker,dt1,row(p1,q2))
+curdoc().add_root(layout)
